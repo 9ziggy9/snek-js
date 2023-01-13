@@ -1,0 +1,101 @@
+:root {
+    --my-black: #000;
+    --my-blue: #00A;
+    --my-light-blue: #08F;
+    --my-cyan: #AFE;
+    --my-green: #0C5;
+    --my-light-green: #AF6;
+    --my-dark-gray: #333;
+    --my-light-gray: #777;
+    --my-lighter-gray: #BBB;
+    --my-white: #FFF;
+    --my-brown: #640;
+    --my-red: #800;
+    --my-light-red: #F77;
+    --my-violet: #C4C;
+    --my-orange: #D85;
+    --my-yellow: #EE7;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--my-blue);
+    color: var(--my-white);
+    font-family:  "VT323", monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+#game-container {
+    background-color: var(--my-dark-gray);
+}
+
+#game-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 2em);
+    grid-template-rows: repeat(10, 2em);
+}
+
+.occupied {
+    border: 1px solid var(--my-white);
+    background-color: var(--my-violet);
+}
+
+.unoccupied {
+    border: 1px solid var(--my-white);
+    background-color: var(--my-dark-gray);
+}
+
+.apple {
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+/* TODO: change to material icon apple via DOM */
+@keyframes example {
+    from {
+	background-color: var(--my-red);
+	transform: rotate(30deg) scale(0.5);
+	border-radius: 0px;
+    }
+    25% {
+	background-color: var(--my-yellow);
+	transform: rotate(10deg) scale(1.2);
+	border-radius: 5px;
+    }
+    50% {
+	background-color: var(--my-violet);
+	transform: rotate(60deg) scale(0.1);
+	border-radius: 10px;
+    }
+    75% {
+	background-color: var(--my-cyan);
+	transform: rotate(75deg) scale(0.5);
+	border-radius: 25px;
+    }
+    to {
+	background-color: var(--my-green);
+	transform: rotate(90deg) scale(1);
+	border-radius: 50px;
+    }
+}
+
+#button-bar {
+    padding:1em;
+    background-color: var(--my-blue);
+    display:flex;
+    justify-content:center;
+}
+
+#debug-apple {
+    background-color: var(--my-green);
+    color: var(--my-black);
+}
