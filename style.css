@@ -26,6 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    caret-color: transparent;
 }
 
 h1 {
@@ -39,8 +40,8 @@ h1 {
 
 #game-grid {
     display: grid;
-    grid-template-columns: repeat(15, 2em);
-    grid-template-rows: repeat(10, 2em);
+    grid-template-columns: repeat(20, 1.5em);
+    grid-template-rows: repeat(15, 1.5em);
 }
 
 .occupied {
