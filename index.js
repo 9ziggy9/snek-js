@@ -108,7 +108,7 @@ function run() {
     clearGrid();
     snek.moveRight();
     snek.render();
-  }, 20);
+  }, 75);
 }
 
 window.onload = run;
