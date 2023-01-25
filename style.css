@@ -44,14 +44,14 @@ h1 {
     grid-template-rows: repeat(15, 1.5em);
 }
 
-.occupied {
-    border: 1px solid var(--my-white);
-    background-color: var(--my-violet);
-}
-
 .unoccupied {
     border: 1px solid var(--my-white);
     background-color: var(--my-dark-gray);
+}
+
+.occupied {
+    border: 1px solid var(--my-white);
+    background-color: var(--my-violet);
 }
 
 .apple {

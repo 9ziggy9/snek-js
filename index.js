@@ -9,18 +9,43 @@ class Node {
 }
 
 class Snek {
-  constructor(size=5,x=2,y=0) {
+  constructor(size=8,x=7,y=0,dir="RIGHT") {
     this.size = size;
     this.buffer = new Array(this.size);
     this.head = {x, y};
     this.oldest = 0;
     // TODO: Implement string based movement
-    this.dir = "RIGHT";
+    this.dir = dir;
   }
   set(x,y) {
     this.buffer[this.oldest++] = new Node(x,y);
     this.oldest %= this.size;
     return this.oldest;
+  }
+  grow() {
+    let {x,y} = this.buffer[this.oldest];
+    switch (this.dir) {
+    case "RIGHT":
+      x = x - 1 < 0 ? COLS : x - 1;
+      this.size++;
+      this.set(x,y);
+      break;
+    case "DOWN":
+      this.head.y = this.head.y + 1 < ROWS ? this.head.y + 1 : 0;
+      this.set(this.head.x, this.head.y);
+      break;
+    case "UP":
+      this.head.y = this.head.y > 0 ? this.head.y - 1 : ROWS - 1;
+      this.set(this.head.x, this.head.y);
+      break;
+    case "LEFT":
+      this.head.x = this.head.x > 0 ? this.head.x - 1 : COLS - 1;
+      this.set(this.head.x, this.head.y);
+      break;
+    default:
+      console.error("WTF");
+      break;
+    }
   }
   move() {
     switch (this.dir) {
@@ -29,7 +54,6 @@ class Snek {
       this.set(this.head.x, this.head.y);
       break;
     case "DOWN":
-      console.log(this.buffer);
       this.head.y = this.head.y + 1 < ROWS ? this.head.y + 1 : 0;
       this.set(this.head.x, this.head.y);
       break;
@@ -52,11 +76,22 @@ class Snek {
     this.set(2,0);
     this.set(3,0);
     this.set(4,0);
+    this.set(5,0);
+    this.set(6,0);
+    this.set(7,0);
   }
   render() {
     this.buffer.forEach(node => {
       const cell = document.getElementById(`${node.x},${node.y}`);
-      cell.setAttribute("class", "occupied");
+      cell.classList.toggle("unoccupied");
+      cell.classList.toggle("occupied");
+    });
+  }
+  renderBonus() {
+    this.buffer.forEach(node => {
+      const cell = document.getElementById(`${node.x},${node.y}`);
+      cell.classList.toggle("unoccupied");
+      cell.classList.toggle("occupied");
     });
   }
 }
@@ -72,8 +107,6 @@ function initGrid() {
       grid.appendChild(newCell);
     }
   }
-  let generateButton = document.getElementById("debug-apple");
-  generateButton.addEventListener("click", generateApple);
 }
 
 function generateApple() {
@@ -116,18 +149,24 @@ function clearGrid() {
   }
 }
 
+function testGrow(snek) {
+  snek.grow();
+}
+
 function run() {
   let frameCount = 0;
   initGrid();
   const snek = new Snek();
   snek.init();
-  document.addEventListener("keydown", () => handleInput(snek));
   snek.render();
+  document.addEventListener("keydown", () => handleInput(snek));
+  let generateButton = document.getElementById("debug-grow");
+  generateButton.addEventListener("click", () => testGrow(snek));
   // GAME LOOP
   setInterval(() => {
     clearGrid();
     snek.move();
-    snek.render();
+    snek.renderBonus();
   }, 75);
 }
 
