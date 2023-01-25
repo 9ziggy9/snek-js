@@ -24,7 +24,7 @@ class Snek {
   }
   moveRight() {
     this.set(this.head.x + 1 < COLS ? this.head.x + 1 : 0, this.head.y);
-    this.head.x++;
+    this.head.x = this.head.x + 1 < COLS ? this.head.x + 1 : 0;
   }
   init() {
     this.set(0,0);
