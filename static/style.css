@@ -59,18 +59,21 @@ h1 {
 }
 
 #game-grid {
+    background-color: var(--my-black);
     display: grid;
     grid-template-columns: repeat(20, 1.5em);
     grid-template-rows: repeat(15, 1.5em);
 }
 
 .occupied {
-    border: 1px solid var(--my-white);
+    /* border: 1px solid var(--my-white); */
     background-color: var(--my-violet);
+    border-radius: 50px;
+    border-radius: 50px;
 }
 
 .unoccupied {
-    border: 1px solid var(--my-white);
+    /* border: 1px solid var(--my-white); */
     background-color: var(--my-black);
 }
 
