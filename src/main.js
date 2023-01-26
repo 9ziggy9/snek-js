@@ -2,10 +2,7 @@ import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
 import {Snek} from "./class.js";
 import {initButtons, initGrid} from "./init.js";
 import {COLORS_SOLARIZED} from "./color.js";
-import {initLoop} from "./loop.js";
-
-// Custom sleep function used to make variance in time tenable.
-// Possible solution could be to use requestAnimationFrame
+import {startGame} from "./loop.js";
 
 function handleInput(snek) {
   switch(window.event.keyCode) {
@@ -26,18 +23,6 @@ function handleInput(snek) {
   }
 }
 
-// TODO: MAKE ME MORE EFFICIENT
-// TIME COMPLEXITY: O(N^2)
-function clearGrid() {
-  for (let row = 0; row < ROWS; row++) {
-    for (let col = 0; col < COLS; col++) {
-      const clearMe = document.getElementById(`${col},${row}`);
-      clearMe.setAttribute("class", "unoccupied");
-      clearMe.style.backgroundColor = COLORS_SOLARIZED["my-black"];
-    }
-  }
-}
-
 function run() {
   let frameCount = 0;
   initGrid();
@@ -47,18 +32,13 @@ function run() {
   document.addEventListener("keydown", () => handleInput(snek));
   snek.init();
   snek.render();
-
   // TODO: decouple me
   let bonusButton = document.getElementById("debug-bonus");
   bonusButton.addEventListener("click", () => snek.bonus = !snek.bonus);
-
+  // let growButton = document.getElementById("debug-grow");
+  // growButton.addEventListener("click", snek.grow);
   // GAME LOOP
-  initLoop(15, snek);
-  // const loop = setInterval(() => {
-  //   clearGrid();
-  //   snek.move();
-  //   BONUS ? snek.renderBonus() : snek.render();
-  // }, 75);
+  startGame(15, snek);
 }
 
 window.onload = run;

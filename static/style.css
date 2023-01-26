@@ -118,8 +118,3 @@ h1 {
     display:flex;
     justify-content:center;
 }
-
-#debug-apple {
-    background-color: var(--my-green);
-    color: var(--my-black);
-}

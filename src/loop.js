@@ -1,6 +1,6 @@
 let then = Date.now();
 
-export function initLoop(fps, snek) {
+export function startGame(fps, snek) {
   let fpsInterval = 1000 / fps;
   loop(fpsInterval, snek);
 }
@@ -8,7 +8,7 @@ export function initLoop(fps, snek) {
 function loop(fpsInterval, snek) {
   let now = Date.now();
   let elapsed = now - then;
-  if (elapsed > (snek.bonus ? fpsInterval / 2 : fpsInterval)) {
+  if (elapsed > (snek.bonus ? fpsInterval / 1.75 : fpsInterval)) {
     then = now - (elapsed % fpsInterval);
     snek.move();
     snek.render();

@@ -33,6 +33,7 @@ export class Snek {
 		                       : ROWS + this.head.y + y) % ROWS;
     this.set(this.head.x, this.head.y);
   }
+  // ARROW FUNCTION BECAUSE CONTEXT! ;)
   init() {
     this.set(0,0);
     this.set(1,0);
