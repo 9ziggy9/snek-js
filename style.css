@@ -1,20 +1,40 @@
+/* C64 COLORS */
+/* :root { */
+/*     --my-black: #000; */
+/*     --my-blue: #00A; */
+/*     --my-light-blue: #08F; */
+/*     --my-cyan: #AFE; */
+/*     --my-green: #0C5; */
+/*     --my-light-green: #AF6; */
+/*     --my-dark-gray: #333; */
+/*     --my-light-gray: #777; */
+/*     --my-lighter-gray: #BBB; */
+/*     --my-white: #FFF; */
+/*     --my-brown: #640; */
+/*     --my-red: #800; */
+/*     --my-light-red: #F77; */
+/*     --my-violet: #C4C; */
+/*     --my-orange: #D85; */
+/*     --my-yellow: #EE7; */
+/* } */
+
+/* SOLARIZED DARK */
 :root {
-    --my-black: #000;
-    --my-blue: #00A;
-    --my-light-blue: #08F;
-    --my-cyan: #AFE;
-    --my-green: #0C5;
-    --my-light-green: #AF6;
-    --my-dark-gray: #333;
-    --my-light-gray: #777;
-    --my-lighter-gray: #BBB;
-    --my-white: #FFF;
-    --my-brown: #640;
-    --my-red: #800;
-    --my-light-red: #F77;
-    --my-violet: #C4C;
-    --my-orange: #D85;
-    --my-yellow: #EE7;
+    --my-black: #002b36;
+    --my-blue: #073642;
+    --my-light-blue: #268bd2;
+    --my-cyan: #2aa198;
+    --my-green: #859900;
+    --my-dark-gray: #586e75;
+    --my-light-gray: #657b83;
+    --my-lighter-gray: #839496;
+    --my-white: #eee8d5;
+    --my-light-white: #fdf6e3;
+    --my-red: #dc322f;
+    --my-magenta: #d33682;
+    --my-violet: #6c71c4;
+    --my-orange: #cb4b16;
+    --my-yellow: #b58900;
 }
 
 body {
@@ -51,7 +71,7 @@ h1 {
 
 .unoccupied {
     border: 1px solid var(--my-white);
-    background-color: var(--my-dark-gray);
+    background-color: var(--my-black);
 }
 
 .apple {
