@@ -35,9 +35,7 @@ function run() {
   // TODO: decouple me
   let bonusButton = document.getElementById("debug-bonus");
   bonusButton.addEventListener("click", () => snek.bonus = !snek.bonus);
-  // let growButton = document.getElementById("debug-grow");
-  // growButton.addEventListener("click", snek.grow);
-  // GAME LOOP
+  // GAME LOOP: setInterval is a BAAAAD idea.
   startGame(15, snek);
 }
 
