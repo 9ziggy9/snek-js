@@ -1,6 +1,11 @@
 import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
 import {Snek} from "./class.js";
 import {initButtons, initGrid} from "./init.js";
+import {COLORS_SOLARIZED} from "./color.js";
+import {initLoop} from "./loop.js";
+
+// Custom sleep function used to make variance in time tenable.
+// Possible solution could be to use requestAnimationFrame
 
 function handleInput(snek) {
   switch(window.event.keyCode) {
@@ -28,6 +33,7 @@ function clearGrid() {
     for (let col = 0; col < COLS; col++) {
       const clearMe = document.getElementById(`${col},${row}`);
       clearMe.setAttribute("class", "unoccupied");
+      clearMe.style.backgroundColor = COLORS_SOLARIZED["my-black"];
     }
   }
 }
@@ -41,12 +47,18 @@ function run() {
   document.addEventListener("keydown", () => handleInput(snek));
   snek.init();
   snek.render();
+
+  // TODO: decouple me
+  let bonusButton = document.getElementById("debug-bonus");
+  bonusButton.addEventListener("click", () => snek.bonus = !snek.bonus);
+
   // GAME LOOP
-  setInterval(() => {
-    clearGrid();
-    snek.move();
-    snek.render();
-  }, 75);
+  initLoop(15, snek);
+  // const loop = setInterval(() => {
+  //   clearGrid();
+  //   snek.move();
+  //   BONUS ? snek.renderBonus() : snek.render();
+  // }, 75);
 }
 
 window.onload = run;

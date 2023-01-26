@@ -1,4 +1,5 @@
 import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
+import {COLORS_SOLARIZED, randColor} from "./color.js";
 
 class Node {
   constructor(x, y) {
@@ -15,8 +16,11 @@ export class Snek {
     this.oldest = 0;
     // TODO: Implement string based movement
     this.dir = RIGHT;
+    this.bonus = false;
+    this.dead = null;
   }
   set(x,y) {
+    this.dead = this.buffer[this.oldest];
     this.buffer[this.oldest++] = new Node(x,y);
     this.oldest %= this.size;
     return this.oldest;
@@ -42,6 +46,17 @@ export class Snek {
     this.buffer.forEach(node => {
       const cell = document.getElementById(`${node.x},${node.y}`);
       cell.setAttribute("class", "occupied");
+      cell.style.backgroundColor = this.bonus
+	? randColor(COLORS_SOLARIZED)
+	: COLORS_SOLARIZED["my-violet"];
     });
+  }
+  clear() {
+    if (this.dead) {
+      const {x,y} = this.dead;
+      const deadCell = document.getElementById(`${x},${y}`);
+      deadCell.setAttribute("class", "unoccupied");
+      deadCell.style.backgroundColor = COLORS_SOLARIZED["my-black"];
+    }
   }
 }
