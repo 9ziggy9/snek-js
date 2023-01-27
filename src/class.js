@@ -1,5 +1,6 @@
 import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
 import {COLORS_SOLARIZED, randColor} from "./color.js";
+import {generateApple} from "./init.js";
 
 class Node {
   constructor(x, y) {
@@ -18,6 +19,8 @@ export class Snek {
     this.dir = RIGHT;
     this.bonus = false;
     this.dead = null;
+    this.isAlive = true;
+    this.apple = null;
   }
   set(x,y) {
     this.dead = this.buffer[this.oldest];
@@ -31,9 +34,24 @@ export class Snek {
 		                       : COLS + this.head.x + x) % COLS;
     this.head.y = (this.head.y + y > 0 ? this.head.y + y
 		                       : ROWS + this.head.y + y) % ROWS;
-    this.set(this.head.x, this.head.y);
+    if (this.isColliding(this.head.x, this.head.y)) this.isAlive = false;
+    if (this.foundApple(this.head.x, this.head.y)) {
+      this.grow();
+      generateApple(this);
+    }
+    return this.set(this.head.x, this.head.y);
   }
-  // ARROW FUNCTION BECAUSE CONTEXT! ;)
+  foundApple = (x,y) => x === this.apple[0] && y === this.apple[1];
+  isColliding = (x,y) => Boolean(this.buffer.find(n => n.x === x && n.y === y));
+  grow = () => {
+    const {x,y} = this.buffer[this.oldest];
+    this.buffer = [
+      ...this.buffer.slice(0,this.oldest),
+      new Node(x,y),
+      ...this.buffer.slice(this.oldest)
+    ];
+    this.size++;
+  }
   init() {
     this.set(0,0);
     this.set(1,0);

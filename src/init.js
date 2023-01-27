@@ -1,10 +1,11 @@
 import {ROWS, COLS} from "./global.js";
 
-function generateApple() {
+export function generateApple(snek) {
   const col = Math.floor(Math.random() * COLS);
   const row = Math.floor(Math.random() * ROWS);
   let apple = document.getElementById(`${col},${row}`);
   apple.setAttribute("class", "apple");
+  snek.apple = [col, row];
 }
 
 export function initGrid() {
@@ -21,7 +22,8 @@ export function initGrid() {
   }
 }
 
-export function initButtons() {
+export function initButtons(snek) {
   let generateButton = document.getElementById("debug-apple");
-  generateButton.addEventListener("click", generateApple);
+  generateButton.addEventListener("click", () => generateApple(snek));
+  generateApple(snek);
 }
