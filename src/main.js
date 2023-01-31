@@ -1,6 +1,6 @@
 import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
-import {Snek} from "./class.js";
-import {initButtons, initGrid} from "./init.js";
+import {Snek, Game} from "./class.js";
+import {initGrid} from "./init.js";
 import {COLORS_SOLARIZED} from "./color.js";
 import {startGame} from "./loop.js";
 
@@ -29,21 +29,15 @@ function handleInput(snek) {
 
 function run() {
   let frameCount = 0;
-  const snek = new Snek();
   initGrid();
-  initButtons(snek);
+  const snek = new Snek();
+  const game = new Game();
+  game.generateApple();
   // EVENT LISTENER MUST TAKE CALLBACK/FUNCTION REFERENCE
   document.addEventListener("keydown", () => handleInput(snek));
   snek.init();
   snek.render();
-  // TODO: decouple me
-  let bonusButton = document.getElementById("debug-bonus");
-  bonusButton.addEventListener("click", () => snek.bonus = !snek.bonus);
-  let growButton = document.getElementById("debug-grow");
-  growButton.addEventListener("click", snek.grow);
-  // GAME LOOP: setInterval is a BAAAAD idea.
-  // requestAnimationFrame
-  startGame(15, snek);
+  startGame(15, snek, game);
 }
 
 window.onload = run;

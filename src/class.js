@@ -1,6 +1,5 @@
 import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
 import {COLORS_SOLARIZED, randColor} from "./color.js";
-import {generateApple} from "./init.js";
 
 class Node {
   constructor(x, y) {
@@ -9,18 +8,39 @@ class Node {
   }
 }
 
+export class Game {
+  constructor() {
+    this.apple = null;
+    this.over = false;
+    this.bonusApple = false;
+  }
+  generateApple() {
+    const col = Math.floor(Math.random() * COLS);
+    const row = Math.floor(Math.random() * ROWS);
+    let apple = document.getElementById(`${col},${row}`);
+    if (Math.random() > 0.15) {
+      this.bonusApple = false;
+      apple.setAttribute("class", "regular-apple");
+    } else {
+      this.bonusApple = true;
+      apple.setAttribute("class", "bonus-apple");
+    }
+    this.apple = {x: col, y: row};
+  }
+  splashBonus() {
+    // TODO: css animation to indicate bonus
+  }
+}
+
 export class Snek {
-  constructor(size=7) {
+  constructor(size=3) {
     this.size = size;
     this.buffer = new Array(this.size);
     this.head = {x: size - 1, y: 0};
     this.oldest = 0;
-    // TODO: Implement string based movement
     this.dir = RIGHT;
     this.bonus = false;
     this.dead = null;
-    this.isAlive = true;
-    this.apple = null;
   }
   set(x,y) {
     this.dead = this.buffer[this.oldest];
@@ -28,21 +48,23 @@ export class Snek {
     this.oldest %= this.size;
     return this.oldest;
   }
-  move() {
+  move(game) {
     const [x,y] = this.dir;
     this.head.x = (this.head.x + x > 0 ? this.head.x + x
 		                       : COLS + this.head.x + x) % COLS;
     this.head.y = (this.head.y + y > 0 ? this.head.y + y
 		                       : ROWS + this.head.y + y) % ROWS;
-    if (this.isColliding(this.head.x, this.head.y)) this.isAlive = false;
-    if (this.foundApple(this.head.x, this.head.y)) {
+    if (this.isColliding()) game.over = true;
+    if (this.foundApple(game)) {
       this.grow();
-      generateApple(this);
+      this.bonus = game.bonusApple;
+      game.generateApple();
     }
     return this.set(this.head.x, this.head.y);
   }
-  foundApple = (x,y) => x === this.apple[0] && y === this.apple[1];
-  isColliding = (x,y) => Boolean(this.buffer.find(n => n.x === x && n.y === y));
+  foundApple = ({apple: {x,y}}) => this.head.x === x && this.head.y === y;
+  isColliding = () => !this.bonus
+    && Boolean(this.buffer.find(n => n.x === this.head.x && n.y === this.head.y));
   grow = () => {
     const {x,y} = this.buffer[this.oldest];
     this.buffer = [
@@ -56,10 +78,6 @@ export class Snek {
     this.set(0,0);
     this.set(1,0);
     this.set(2,0);
-    this.set(3,0);
-    this.set(4,0);
-    this.set(5,0);
-    this.set(6,0);
   }
   render() {
     this.buffer.forEach(node => {
