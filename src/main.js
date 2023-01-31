@@ -33,7 +33,6 @@ function run() {
   const snek = new Snek();
   const game = new Game();
   game.generateApple();
-  // EVENT LISTENER MUST TAKE CALLBACK/FUNCTION REFERENCE
   document.addEventListener("keydown", () => handleInput(snek));
   snek.init();
   snek.render();

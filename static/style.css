@@ -59,10 +59,54 @@ h1 {
 }
 
 #game-grid {
+    position:relative;
     background-color: var(--my-black);
     display: grid;
     grid-template-columns: repeat(40, 1.5em);
     grid-template-rows: repeat(30, 1.5em);
+}
+
+#splash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    min-width:100%;
+    min-height:100%;
+    z-index: 1;
+}
+
+.bonus-text {
+    z-index: 2;
+    color: rgba(255,255,255,1);
+    font-size: 10rem;
+    visibility: hidden;
+}
+
+@keyframes bonus-splash {
+    from {
+	visibility: visible;
+	font-size: 1rem;
+	opacity: 100%;
+    }
+    25% {
+	color: var(--my-green);
+    }
+    75% {
+	color: var(--my-red);
+	opacity: 75%;
+    }
+    to {
+	color: var(--my-light-blue);
+	opacity: 0%;
+	font-size: 10rem;
+    }
+}
+
+.show-bonus {
+    visibility: hidden;
+    animation-name: bonus-splash;
+    animation-duration: 1s;
 }
 
 .occupied {

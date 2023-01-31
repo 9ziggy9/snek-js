@@ -18,7 +18,7 @@ export class Game {
     const col = Math.floor(Math.random() * COLS);
     const row = Math.floor(Math.random() * ROWS);
     let apple = document.getElementById(`${col},${row}`);
-    if (Math.random() > 0.15) {
+    if (Math.random() > 0.5) {
       this.bonusApple = false;
       apple.setAttribute("class", "regular-apple");
     } else {
@@ -26,9 +26,6 @@ export class Game {
       apple.setAttribute("class", "bonus-apple");
     }
     this.apple = {x: col, y: row};
-  }
-  splashBonus() {
-    // TODO: css animation to indicate bonus
   }
 }
 
@@ -56,8 +53,12 @@ export class Snek {
 		                       : ROWS + this.head.y + y) % ROWS;
     if (this.isColliding()) game.over = true;
     if (this.foundApple(game)) {
+      const bonusSplash = document.querySelector(".bonus-text");
       this.grow();
       this.bonus = game.bonusApple;
+      this.bonus
+	? bonusSplash.classList.add("show-bonus")
+	: bonusSplash.classList.remove("show-bonus");
       game.generateApple();
     }
     return this.set(this.head.x, this.head.y);
