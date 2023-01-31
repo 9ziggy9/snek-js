@@ -49,9 +49,23 @@ body {
     caret-color: transparent;
 }
 
-h1 {
+#logo-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-bottom:0;
+}
+
+h1 {
+    font-size:3em;
+    margin: 0.1em;
+    margin-right:0.1em;
+    text-shadow: 0 0 10px black;
+}
+
+#logo {
+    width: 2rem;
+    height: 2rem;
 }
 
 #score-area {
