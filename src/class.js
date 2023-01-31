@@ -13,12 +13,13 @@ export class Game {
     this.apple = null;
     this.over = false;
     this.bonusApple = false;
+    this.score = 0;
   }
   generateApple() {
     const col = Math.floor(Math.random() * COLS);
     const row = Math.floor(Math.random() * ROWS);
     let apple = document.getElementById(`${col},${row}`);
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.20) {
       this.bonusApple = false;
       apple.setAttribute("class", "regular-apple");
     } else {
@@ -26,6 +27,10 @@ export class Game {
       apple.setAttribute("class", "bonus-apple");
     }
     this.apple = {x: col, y: row};
+  }
+  renderScore() {
+    const score = document.getElementById("score");
+    score.innerText = this.score;
   }
 }
 
@@ -59,6 +64,8 @@ export class Snek {
       this.bonus
 	? bonusSplash.classList.add("show-bonus")
 	: bonusSplash.classList.remove("show-bonus");
+      game.score += 15;
+      game.renderScore();
       game.generateApple();
     }
     return this.set(this.head.x, this.head.y);

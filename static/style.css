@@ -54,6 +54,19 @@ h1 {
     justify-content: center;
 }
 
+#score-area {
+    display: flex;
+    justify-content: center;
+    background-color: var(--my-blue);
+    font-size: 2rem;
+}
+
+#score {
+    font-size: 2rem;
+    margin-left: 1rem;
+    color: var(--my-light-white);
+}
+
 #game-container {
     background-color: var(--my-dark-gray);
 }
