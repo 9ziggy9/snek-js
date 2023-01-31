@@ -72,6 +72,7 @@ h1 {
 }
 
 #game-grid {
+    box-shadow: 10px 5px 5px var(--my-black);
     position:relative;
     background-color: var(--my-black);
     display: grid;
