@@ -3,11 +3,12 @@ https://effortless-youtiao-c31d3d.netlify.app
 * snek
 snake in pure js html/css
 
-** KNOWN BUGS
-***  Apple generation needs to not collide with snek
-***  Key latency allows reveral of direction, unexpected collisions. Try hitting down/left etc simultaneously.
-
 ** TODO
 *** Integrate backend and persist high scores.
 *** User authorization
 *** Fake monetization system!!! Users have to "purchase" credits.
+
+** KNOWN BUGS
+***  Apple generation needs to not collide with snek
+***  Key latency allows reveral of direction, unexpected collisions. Try hitting down/left etc simultaneously.
+
