@@ -56,6 +56,10 @@ body {
     margin-bottom:0;
 }
 
+.hidden-audio {
+    display: none;
+}
+
 h1 {
     font-size:3em;
     margin: 0.1em;

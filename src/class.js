@@ -32,6 +32,10 @@ export class Game {
     const score = document.getElementById("score");
     score.innerText = this.score;
   }
+  audioBlip(sound) {
+    const soundBlip = document.getElementById(sound);
+    soundBlip.play();
+  }
 }
 
 export class Snek {
@@ -56,14 +60,21 @@ export class Snek {
 		                       : COLS + this.head.x + x) % COLS;
     this.head.y = (this.head.y + y > 0 ? this.head.y + y
 		                       : ROWS + this.head.y + y) % ROWS;
-    if (this.isColliding()) game.over = true;
+    if (this.isColliding()) {
+      game.over = true; 
+      game.audioBlip("audio-gameover");
+    }
     if (this.foundApple(game)) {
       const bonusSplash = document.querySelector(".bonus-text");
       this.grow();
       this.bonus = game.bonusApple;
-      this.bonus
-	? bonusSplash.classList.add("show-bonus")
-	: bonusSplash.classList.remove("show-bonus");
+      if (this.bonus) {
+	game.audioBlip("audio-bonus");
+	bonusSplash.classList.add("show-bonus");
+      } else {
+	game.audioBlip("audio-blip");
+	bonusSplash.classList.remove("show-bonus");
+      }
       game.score += 15;
       game.renderScore();
       game.generateApple();

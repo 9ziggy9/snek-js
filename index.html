@@ -9,16 +9,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     <!-- end fonts -->
     <title>snek</title>
     <link rel="stylesheet" href="./static/style.css">
   </head>
   <body>
+    <audio id="audio-blip" class="hidden-audio" controls>
+      <source src="./assets/blip.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-bonus" class="hidden-audio" controls>
+      <source src="./assets/bonus.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-gameover" class="hidden-audio" controls>
+      <source src="./assets/gameover.mp3" type="audio/mpeg">
+    </audio>
     <div id="app">
       <div id="logo-container">
 	<h1>snek</h1>
-	<img src="./static/snek.gif" id="logo">
+	<img src="./assets/snek.gif" id="logo">
       </div>
       <div id="game-container">
 	<div id="game-grid">
