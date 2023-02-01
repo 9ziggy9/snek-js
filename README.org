@@ -1,13 +1,12 @@
-https://effortless-youtiao-c31d3d.netlify.app
-
 * snek
-
+Static deployment: https://effortless-youtiao-c31d3d.netlify.app
 ** TODO
 *** Integrate backend and persist high scores.
 *** User authorization
 *** Fake monetization system!!! Users have to "purchase" credits.
-
 ** KNOWN BUGS
 ***  Apple generation needs to not collide with snek
+Solution: I would like to come up with something that is a little better than O(N*M) but number of cells is really only 40x30 so strictly speaking it would be totally fine to take a low-brow approach, at least for the time being.
 ***  Key latency allows reveral of direction, unexpected collisions. Try hitting down/left etc simultaneously.
+Solution: Should be simple, we either need to buffer input or disregard events outside of frame interval. The latter is probably the best option.
 
