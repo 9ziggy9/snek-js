@@ -5,6 +5,19 @@ export function startGame(fps, snek, game) {
   loop(fpsInterval, snek, game);
 }
 
+const getScores = async () => {};
+const postScores = async () => {};
+
+function gameOver() {
+  const score = document.querySelector(".score-form");
+  const blur = document.querySelector(".blur-win");
+  const input = document.getElementById("score-input");
+  blur.classList.add("score-reveal");
+  score.classList.add("score-reveal");
+  input.focus();
+  return null;
+}
+
 // WAAAAAY BETTER than trying to use setInterval
 function loop(fpsInterval, snek, game) {
   let now = Date.now();
@@ -16,7 +29,7 @@ function loop(fpsInterval, snek, game) {
       snek.render();
       snek.clear();
     } else { // GAME OVER EVENTS
-      alert("GAME OVER!");
+      return gameOver();
     }
   }
   // WE NEED requestAnimationFrame because it will only execute code
