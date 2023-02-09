@@ -32,8 +32,12 @@ const postScore = async (player, score) => {
     body: JSON.stringify({player, score})
   });
   const playAgain = document.querySelector(".play-again");
+  const playAgainButton = document.getElementById("play-again-submit");
+  const disableInput = document.getElementById("score-input");
   // TODO: Add event listening, potentially change to form submit
   playAgain.classList.add("play-again-reveal");
+  playAgainButton.focus();
+  disableInput.disabled = true;
 };
 
 function gameOver(game) {

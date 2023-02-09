@@ -271,6 +271,20 @@ h1 {
     color: var(--my-light-white);
 }
 
+#play-again-submit {
+    border: none;
+    background: transparent;
+    font-size: 2em;
+    text-shadow: 0 0 10px black;
+    color: var(--my-light-white);
+    font-family:  "VT323", monospace;
+}
+
+#play-again-submit:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .play-again-reveal {
     visibility: visible;
     animation-name: fade-in;
