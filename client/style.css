@@ -235,7 +235,38 @@ h1 {
     align-items: center;
     justify-content: center;
     font-size: 4em;
-    color: rgba(255,255,255,1);
+    color: var(--my-light-white);
+}
+
+.play-again {
+    visibility: hidden;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    color: var(--my-light-white);
+    border: 2px solid var(--my-light-white);
+    border-radius: 6px;
+    font-size: 3em;
+    background-color: var(--my-green);
+    color: var(--my-light-white);
+}
+
+.play-again-reveal {
+    visibility: visible;
+    animation-name: fade-in;
+    animation-duration: 0.5s;
+}
+
+.score-reveal {
+    visibility: visible;
+    animation-name: fade-in;
+    animation-duration: 1.5s;
 }
 
 #high-score-input-form {

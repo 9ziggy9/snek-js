@@ -31,6 +31,9 @@ const postScore = async (player, score) => {
     },
     body: JSON.stringify({player, score})
   });
+  const playAgain = document.querySelector(".play-again");
+  // TODO: Add event listening, potentially change to form submit
+  playAgain.classList.add("play-again-reveal");
 };
 
 function gameOver(game) {
