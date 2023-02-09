@@ -44,6 +44,8 @@ function gameOver(game) {
 
   const form = document.getElementById("high-score-input-form");
   form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    game.audioBlip("audio-submit");
     postScore(e.target[0].value, game.score);
   });
 
