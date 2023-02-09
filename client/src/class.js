@@ -29,7 +29,7 @@ export class Game {
     this.apple = {x: col, y: row};
   }
   renderScore() {
-    const score = document.getElementById("score");
+    const score = document.querySelector(".score");
     score.innerText = this.score;
   }
   audioBlip(sound) {

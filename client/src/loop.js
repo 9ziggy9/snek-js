@@ -40,8 +40,10 @@ function gameOver(game) {
   const score = document.querySelector(".score-form");
   const blur = document.querySelector(".blur-win");
   const input = document.getElementById("score-input");
+  const points = document.querySelector(".score-area");
   blur.classList.add("score-reveal");
   score.classList.add("score-reveal");
+  points.classList.add("score-zoom");
   input.focus();
   getScores();
 

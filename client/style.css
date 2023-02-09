@@ -56,17 +56,31 @@ h1 {
     height: 2rem;
 }
 
-#score-area {
+.score-area {
     display: flex;
     justify-content: center;
     background-color: var(--my-blue);
     font-size: 2rem;
 }
 
-#score {
-    font-size: 2rem;
-    margin-left: 1rem;
+.score {
+    margin-left: 0.5rem;
     color: var(--my-light-white);
+}
+
+.score-zoom {
+    animation-name: zoom-in;
+    animation-duration: 1s;
+    font-size:5rem;
+}
+
+@keyframes zoom-in {
+    from {
+      font-size: 2rem;
+    }
+    to {
+      font-size: 5rem;
+    }
 }
 
 #game-container {
