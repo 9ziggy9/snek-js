@@ -5,17 +5,49 @@ export function startGame(fps, snek, game) {
   loop(fpsInterval, snek, game);
 }
 
-const getScores = async () => {};
-const postScores = async () => {};
+const getScores = async () => {
+  const response = await fetch("http://localhost:1337/scores");
+  const scores = await response.json();
+  const nameContainer = document.getElementById("high-score-left");
+  const scoreContainer = document.getElementById("high-score-right");
+  scores.forEach(score => {
+    // <div class="left-score-entry">2500</div>
+    const nameEntry = document.createElement("div");
+    nameEntry.innerText = score.player;
+    const scoreEntry = document.createElement("div");
+    scoreEntry.innerText = score.score;
+    nameEntry.setAttribute("class", "left-score-entry");
+    scoreEntry.setAttribute("class", "left-score-entry");
+    nameContainer.appendChild(nameEntry);
+    scoreContainer.appendChild(scoreEntry);
+  });
+};
 
-function gameOver() {
+const postScore = async (player, score) => {
+  const response = await fetch("http://localhost:1337/scores", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({player, score})
+  });
+};
+
+function gameOver(game) {
   const score = document.querySelector(".score-form");
   const blur = document.querySelector(".blur-win");
   const input = document.getElementById("score-input");
   blur.classList.add("score-reveal");
   score.classList.add("score-reveal");
   input.focus();
-  return null;
+  getScores();
+
+  const form = document.getElementById("high-score-input-form");
+  form.addEventListener("submit", (e) => {
+    postScore(e.target[0].value, game.score);
+  });
+
+  return 0;
 }
 
 // WAAAAAY BETTER than trying to use setInterval
@@ -29,7 +61,7 @@ function loop(fpsInterval, snek, game) {
       snek.render();
       snek.clear();
     } else { // GAME OVER EVENTS
-      return gameOver();
+      return gameOver(game);
     }
   }
   // WE NEED requestAnimationFrame because it will only execute code

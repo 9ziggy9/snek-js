@@ -16,6 +16,9 @@ const sql_table_score = `CREATE TABLE IF NOT EXISTS Score (
   score INTEGER NOT NULL
 );`;
 
+const sql_select_scores = `SELECT * FROM Score
+  ORDER BY score DESC LIMIT 10;`;
+
 db.run(sql_table_score, (err) => {
   if (err) console.error(err.message);
 });
@@ -27,7 +30,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client")));
 
+app.get("/scores", (req, res) => {
+  db.all(sql_select_scores, (err,data) => {
+    if (err) console.error(err.message);
+    res.json(data);
+  });
+});
+
 app.post("/scores", (req,res) => {
+  console.log(req.body);
   const {player, score} = req.body;
   const sql_insert_score = `INSERT INTO Score (player, score)
     VALUES ('${player}', ${score});`;

@@ -116,13 +116,27 @@ h1 {
 .score-form {
     position: absolute;
     display: grid;
+    grid-template-rows: 1fr 1fr 6fr 2fr;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 6fr 2fr;
     z-index: 2;
     color: rgba(255,255,255,1);
     width: 100%;
     height: 100%;
     visibility: hidden;
+}
+
+.player-score-pane {
+    margin-top: 0.5em;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    min-width: 100%;
+    overflow-y: scroll;
+    scrollbar: hidden;
+    scroll-snap-type: y mandatory;
 }
 
 .score-reveal {
@@ -143,8 +157,6 @@ h1 {
 #high-score-left {
     display: grid;
     grid-template-rows: repeat(11, 1fr);
-    overflow-y: scroll;
-    scrollbar: hidden;
 }
 
 .left-score-entry {
@@ -154,8 +166,10 @@ h1 {
     border-top: 1px solid var(--my-light-white);
     border-bottom: 1px solid var(--my-light-white);
     border-radius: 6px;
+    box-sizing: border-box;
     margin:3px;
     font-size: 2em;
+    scroll-snap-align: start;
 }
 
 .left-score-title {
@@ -164,6 +178,7 @@ h1 {
     justify-content: center;
     border-top: 2px solid var(--my-light-white);
     border-bottom: 2px solid var(--my-light-white);
+    background-color: var(--my-dark-gray);
     border-radius: 6px;
     margin:3px;
     font-size: 2em;
@@ -172,17 +187,17 @@ h1 {
 #high-score-right {
     display: grid;
     grid-template-rows: repeat(11, 1fr);
-    overflow-y: scroll;
-    scrollbar: hidden;
 }
 
 .right-score-entry {
+    scroll-snap-align: start;
     display: flex;
     align-items: center;
     justify-content: center;
     border-top: 1px solid var(--my-light-white);
     border-bottom: 1px solid var(--my-light-white);
     border-radius: 6px;
+    box-sizing: border-box;
     margin:3px;
     font-size: 2em;
 }
@@ -203,14 +218,14 @@ h1 {
 }
 
 #high-score-input {
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
     grid-column-start: 1;
     grid-column-end: 3;
     border-top: 2px solid var(--my-light-white);
     border-bottom: 2px solid var(--my-light-white);
     border-radius: 6px;
-    margin: 10px;
+    margin: 1em;
     display: grid;
     grid-template-columns: 1fr 3fr;
 }
@@ -225,13 +240,15 @@ h1 {
 
 #high-score-input-form {
     display: flex;
-    padding: 3em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 0.5em;
     align-items: center;
     justify-content: center;
 }
 
 form input[type="text"] {
-    text-transform: lowercase;
+    text-transform: uppercase;
 }
 
 #score-input {
@@ -239,12 +256,12 @@ form input[type="text"] {
     font-size: 5em;
     color: var(--my-light-white);
     font-family:  "VT323", monospace;
-    width: 4.5ch; /* <--- DONT FORGET!!!! */
+    width: 15ch; /* <--- DONT FORGET!!!! */
     border: none;
     border-bottom: 1px solid var(--my-light-white);
     color: var(--my-green);
     letter-spacing: 0.5ch;
-    margin-right:2em;
+    margin-right:0.5em;
 }
 
 #score-input:focus, #score-submit:focus {
@@ -275,6 +292,7 @@ form input[type="text"] {
     align-items: center;
     justify-content: center;
     font-size: 5rem;
+    color: var(--my-red);
 }
 
 @keyframes bonus-splash {
