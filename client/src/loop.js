@@ -13,14 +13,31 @@ const getScores = async () => {
   scores.forEach(score => {
     // <div class="left-score-entry">2500</div>
     const nameEntry = document.createElement("div");
-    nameEntry.innerText = score.player;
+    nameEntry.innerText = score.playerName;
     const scoreEntry = document.createElement("div");
     scoreEntry.innerText = score.score;
     nameEntry.setAttribute("class", "left-score-entry");
     scoreEntry.setAttribute("class", "left-score-entry");
+    nameEntry.setAttribute("id", `name-${score.playerId}`);
+    scoreEntry.setAttribute("id", `score-${score.playerId}`);
     nameContainer.appendChild(nameEntry);
     scoreContainer.appendChild(scoreEntry);
   });
+};
+
+const purgeScores = () => {
+  let nameContainer = document.getElementById("high-score-left");
+  let scoreContainer = document.getElementById("high-score-right");
+  nameContainer.innerHTML = "";
+  scoreContainer.innerHTML = "";
+};
+
+const highlightScore = (playerId) => {
+  console.log(playerId);
+  let newPlayer = document.getElementById(`name-${playerId}`);
+  let newScore = document.getElementById(`score-${playerId}`);
+  newScore.classList.add("new-highlight");
+  newPlayer.classList.add("new-highlight");
 };
 
 const postScore = async (player, score) => {
@@ -29,8 +46,11 @@ const postScore = async (player, score) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({player, score})
+    body: JSON.stringify({playerName: player.toUpperCase(), score})
   });
+  const {playerId} = await response.json();
+  purgeScores();
+  getScores();
   const playAgain = document.querySelector(".play-again");
   const playAgainButton = document.getElementById("play-again-submit");
   const disableInput = document.getElementById("score-input");
@@ -38,6 +58,7 @@ const postScore = async (player, score) => {
   playAgain.classList.add("play-again-reveal");
   playAgainButton.focus();
   disableInput.disabled = true;
+  return playerId;
 };
 
 function gameOver(game) {
@@ -52,10 +73,11 @@ function gameOver(game) {
   getScores();
 
   const form = document.getElementById("high-score-input-form");
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     game.audioBlip("audio-submit");
-    postScore(e.target[0].value, game.score);
+    const returnId = await postScore(e.target[0].value, game.score);
+    highlightScore(returnId);
   });
 
   return 0;
