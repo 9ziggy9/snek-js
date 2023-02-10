@@ -23,10 +23,6 @@ const getScores = async () => {
     nameContainer.appendChild(nameEntry);
     scoreContainer.appendChild(scoreEntry);
   });
-  // WTF this is so hack
-  return new Promise((resolve) => {
-    resolve(1);
-  });
 };
 
 const purgeScores = () => {
@@ -53,7 +49,7 @@ const postScore = async (player, score) => {
     body: JSON.stringify({playerName: player.toUpperCase(), score})
   });
   const {playerId} = await response.json();
-  purgeScores();
+  await purgeScores();
   await getScores();
   const playAgain = document.querySelector(".play-again");
   const playAgainButton = document.getElementById("play-again-submit");
