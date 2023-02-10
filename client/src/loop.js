@@ -11,7 +11,6 @@ const getScores = async () => {
   const nameContainer = document.getElementById("high-score-left");
   const scoreContainer = document.getElementById("high-score-right");
   scores.forEach(score => {
-    // <div class="left-score-entry">2500</div>
     const nameEntry = document.createElement("div");
     nameEntry.innerText = score.playerName;
     const scoreEntry = document.createElement("div");
@@ -33,9 +32,9 @@ const purgeScores = () => {
 };
 
 const highlightScore = (playerId) => {
-  console.log(playerId);
   let newPlayer = document.getElementById(`name-${playerId}`);
   let newScore = document.getElementById(`score-${playerId}`);
+  newPlayer.scrollIntoView({behavior: "smooth", block: "center"});
   newScore.classList.add("new-highlight");
   newPlayer.classList.add("new-highlight");
 };

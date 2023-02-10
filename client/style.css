@@ -453,6 +453,13 @@ form input[type="text"] {
 
 .new-highlight {
     background-color: var(--my-green);
+    animation-name: highlight-anim;
+    animation-duration: 0.5s;
+}
+
+@keyframes highlight-anim {
+    from {transform: scale(0.5)}
+    to {transform: scale(1)}
 }
 
 #button-bar {

@@ -33,7 +33,7 @@ app.get("/scores", async (req,res) => {
     order: [
       ["score", "DESC"],
     ],
-    limit: 8,
+    limit: 50,
   });
   res.json(
     scores.map(({playerId, score, Player}) =>
