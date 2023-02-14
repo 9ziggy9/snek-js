@@ -5,6 +5,8 @@ export function startGame(fps, snek, game) {
   loop(fpsInterval, snek, game);
 }
 
+const checker = (i) => i % 2 ? "checker" : "no-checker";
+
 const getScores = async () => {
   const response = await fetch("http://localhost:1337/scores");
   const scores = await response.json();
@@ -18,9 +20,9 @@ const getScores = async () => {
     scoreEntry.innerText = score.score;
     const rankEntry = document.createElement("div");
     rankEntry.innerText = rank + 1;
-    nameEntry.setAttribute("class", "left-score-entry");
-    scoreEntry.setAttribute("class", "right-score-entry");
-    rankEntry.setAttribute("class", "left-score-entry");
+    nameEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
+    scoreEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
+    rankEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
     nameEntry.setAttribute("id", `name-${score.playerId}`);
     scoreEntry.setAttribute("id", `score-${score.playerId}`);
     rankEntry.setAttribute("id", `rank-${rank}`);
