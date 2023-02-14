@@ -12,7 +12,6 @@ app.use(express.json());
 // Serve static assets
 app.use(express.static(path.join(__dirname, "client")));
 
-// Get all scores
 app.get("/scores/:id", async (req,res) => {
   const {id} = req.params;
   const scores = await Player.findByPk(id, {
@@ -24,7 +23,21 @@ app.get("/scores/:id", async (req,res) => {
   res.json(scores);
 });
 
+// Get all scores
 app.get("/scores", async (req,res) => {
+  let {page, size} = req.query;
+
+  page = page ? parseInt(page) : 1;
+  size = size ? parseInt(size) : 1;
+  const pagination = {};
+
+  if (page > 0 && (size > 0 && size <= 200)) {
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+  } else {
+    return res.json({"message": "Invalid paging"});
+  }
+
   const scores = await Score.findAll({
     include: [{
       model: Player
@@ -33,9 +46,10 @@ app.get("/scores", async (req,res) => {
     order: [
       ["score", "DESC"],
     ],
-    limit: 50,
+    ...pagination,
   });
-  res.json(
+
+  return res.json(
     scores.map(({playerId, score, Player}) =>
       ({playerId, score, playerName: Player.name}))
   );
