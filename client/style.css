@@ -186,10 +186,10 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid var(--my-light-white);
-    border-bottom: 1px solid var(--my-light-white);
-    border-radius: 6px;
-    box-sizing: border-box;
+    /* border-top: 1px solid var(--my-light-white); */
+    /* border-bottom: 1px solid var(--my-light-white); */
+    /* border-radius: 6px; */
+    /* box-sizing: border-box; */
     margin: 0px;
     font-size: 2em;
     scroll-snap-align: start;

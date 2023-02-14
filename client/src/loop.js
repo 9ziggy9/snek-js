@@ -79,6 +79,12 @@ function gameOver(game) {
   input.focus();
   getScores();
 
+  const scoreScroll = document.querySelector(".player-score-pane");
+  scoreScroll.addEventListener("scroll", () => {
+    const {scrollTop, scrollHeight, clientHeight} = scoreScroll;
+    if (scrollTop >= scrollHeight / 2) console.log("Found center");
+  });
+
   const form = document.getElementById("high-score-input-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
