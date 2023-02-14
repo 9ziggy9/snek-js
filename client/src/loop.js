@@ -8,19 +8,25 @@ export function startGame(fps, snek, game) {
 const getScores = async () => {
   const response = await fetch("http://localhost:1337/scores");
   const scores = await response.json();
-  const nameContainer = document.getElementById("high-score-left");
-  const scoreContainer = document.getElementById("high-score-right");
-  scores.forEach(score => {
+  const nameContainer = document.getElementById("high-score-player");
+  const scoreContainer = document.getElementById("high-score-score");
+  const rankContainer = document.getElementById("high-score-number");
+  scores.forEach((score,rank) => {
     const nameEntry = document.createElement("div");
     nameEntry.innerText = score.playerName;
     const scoreEntry = document.createElement("div");
     scoreEntry.innerText = score.score;
+    const rankEntry = document.createElement("div");
+    rankEntry.innerText = rank + 1;
     nameEntry.setAttribute("class", "left-score-entry");
-    scoreEntry.setAttribute("class", "left-score-entry");
+    scoreEntry.setAttribute("class", "right-score-entry");
+    rankEntry.setAttribute("class", "left-score-entry");
     nameEntry.setAttribute("id", `name-${score.playerId}`);
     scoreEntry.setAttribute("id", `score-${score.playerId}`);
+    rankEntry.setAttribute("id", `rank-${rank}`);
     nameContainer.appendChild(nameEntry);
     scoreContainer.appendChild(scoreEntry);
+    rankContainer.appendChild(rankEntry);
   });
 };
 

@@ -131,7 +131,7 @@ h1 {
     position: absolute;
     display: grid;
     grid-template-rows: 1fr 1fr 6fr 2fr;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr 9fr;
     z-index: 2;
     color: rgba(255,255,255,1);
     width: 100%;
@@ -142,11 +142,11 @@ h1 {
 .player-score-pane {
     margin-top: 0.5em;
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr 9fr;
     grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 4;
     min-width: 100%;
     overflow-y: scroll;
     scrollbar: hidden;
@@ -168,12 +168,17 @@ h1 {
     }
 }
 
-#high-score-left {
+#high-score-player {
     display: grid;
     grid-template-rows: repeat(11, 1fr);
 }
 
-.left-score-entry {
+#high-score-number {
+    display: grid;
+    grid-template-rows: repeat(11, 1fr);
+}
+
+.left-score-entry, .right-score-entry, .rank-entry {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,7 +191,7 @@ h1 {
     scroll-snap-align: start;
 }
 
-.left-score-title {
+.title-player, .title-score, .title-number {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -198,22 +203,9 @@ h1 {
     font-size: 2em;
 }
 
-#high-score-right {
+#high-score-score {
     display: grid;
     grid-template-rows: repeat(11, 1fr);
-}
-
-.right-score-entry {
-    scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid var(--my-light-white);
-    border-bottom: 1px solid var(--my-light-white);
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin:3px;
-    font-size: 2em;
 }
 
 .right-score-title {
@@ -235,7 +227,7 @@ h1 {
     grid-row-start: 4;
     grid-row-end: 5;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 4;
     border-top: 2px solid var(--my-light-white);
     border-bottom: 2px solid var(--my-light-white);
     border-radius: 6px;
@@ -346,7 +338,7 @@ form input[type="text"] {
     grid-row-start: 1;
     grid-row-end: 2;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 4;
     display: flex;
     align-items: center;
     justify-content: center;
