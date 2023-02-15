@@ -23,8 +23,8 @@ const getScores = async () => {
     nameEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
     scoreEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
     rankEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
-    nameEntry.setAttribute("id", `name-${score.playerId}`);
-    scoreEntry.setAttribute("id", `score-${score.playerId}`);
+    nameEntry.setAttribute("id", `name-${score.id}`);
+    scoreEntry.setAttribute("id", `score-${score.id}`);
     rankEntry.setAttribute("id", `rank-${rank}`);
     nameContainer.appendChild(nameEntry);
     scoreContainer.appendChild(scoreEntry);
@@ -33,18 +33,22 @@ const getScores = async () => {
 };
 
 const purgeScores = () => {
-  let nameContainer = document.getElementById("high-score-left");
-  let scoreContainer = document.getElementById("high-score-right");
+  let rankContainer = document.getElementById("high-score-number");
+  let nameContainer = document.getElementById("high-score-player");
+  let scoreContainer = document.getElementById("high-score-score");
+  rankContainer.innerHTML = "";
   nameContainer.innerHTML = "";
   scoreContainer.innerHTML = "";
 };
 
-const highlightScore = (playerId) => {
-  let newPlayer = document.getElementById(`name-${playerId}`);
-  let newScore = document.getElementById(`score-${playerId}`);
+const highlightScore = (scoreId) => {
+  if (!scoreId) return null;
+  let newPlayer = document.getElementById(`name-${scoreId}`);
+  let newScore = document.getElementById(`score-${scoreId}`);
   newPlayer.scrollIntoView({behavior: "smooth", block: "center"});
   newScore.classList.add("new-highlight");
   newPlayer.classList.add("new-highlight");
+  return scoreId;
 };
 
 const postScore = async (player, score) => {
@@ -55,7 +59,8 @@ const postScore = async (player, score) => {
     },
     body: JSON.stringify({playerName: player.toUpperCase(), score})
   });
-  const {playerId} = await response.json();
+  const {scoreId} = await response.json();
+  console.log("SCORE ID HERE", scoreId);
   await purgeScores();
   await getScores();
   const playAgain = document.querySelector(".play-again");
@@ -65,7 +70,7 @@ const postScore = async (player, score) => {
   playAgain.classList.add("play-again-reveal");
   playAgainButton.focus();
   disableInput.disabled = true;
-  return playerId;
+  return scoreId;
 };
 
 function gameOver(game) {

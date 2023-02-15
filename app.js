@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 require("dotenv").config();
-const {Score, Player} = require("./db/models");
+const {Score, Player, sequelize} = require("./db/models");
 
 // INITIAILIZE EXPRESS
 const app = express();
@@ -28,7 +28,8 @@ app.get("/scores", async (req,res) => {
   let {page, size} = req.query;
 
   page = page ? parseInt(page) : 1;
-  size = size ? parseInt(size) : 1;
+  size = size ? parseInt(size) : 50;
+
   const pagination = {};
 
   if (page > 0 && (size > 0 && size <= 200)) {
@@ -42,16 +43,17 @@ app.get("/scores", async (req,res) => {
     include: [{
       model: Player
     }],
-    attribute: ["name"],
+    attribute: [
+      "name"
+    ],
     order: [
       ["score", "DESC"],
     ],
     ...pagination,
   });
-
   return res.json(
-    scores.map(({playerId, score, Player}) =>
-      ({playerId, score, playerName: Player.name}))
+    scores.map(({id, playerId, score, Player, rank}) =>
+      ({id, playerId, score, playerName: Player.name}))
   );
 });
 
@@ -67,14 +69,21 @@ app.post("/scores", async (req,res,next) => {
     } catch(err) {
       return next(err);
     }
-    return res.json({playerId: newPlayer.id, playerName, score});
+    return res.json({
+      scoreId: newScore.id,
+      playerId: newPlayer.id,
+      playerName,
+      score});
   }
   try {
     newScore = await Score.create({playerId: playerExists.id, score});
   } catch(err) {
     return next(err);
   }
-  return res.json({playerId: playerExists.id, playerName, score});
+  return res.json({
+    scoreId: newScore.id,
+    playerId: playerExists.id,
+    playerName, score});
 });
 
 app.use((err,req,res,next) => {

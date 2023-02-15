@@ -182,19 +182,6 @@ h1 {
     grid-template-rows: repeat(11, 1fr);
 }
 
-.left-score-entry, .right-score-entry, .rank-entry {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* border-top: 1px solid var(--my-light-white); */
-    /* border-bottom: 1px solid var(--my-light-white); */
-    /* border-radius: 6px; */
-    /* box-sizing: border-box; */
-    margin: 0px;
-    font-size: 2em;
-    scroll-snap-align: start;
-}
-
 .title-player, .title-score, .title-number {
     display: flex;
     align-items: center;
@@ -227,6 +214,31 @@ h1 {
     font-size: 2em;
 }
 
+.left-score-entry, .right-score-entry, .rank-entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-top: 1px solid var(--my-light-white); */
+    /* border-bottom: 1px solid var(--my-light-white); */
+    /* border-radius: 6px; */
+    box-sizing: border-box;
+    margin: 0px;
+    font-size: 2em;
+    scroll-snap-align: start;
+}
+
+.new-highlight {
+    background-color: var(--my-green);
+    /* animation-name: highlight-anim; */
+    /* animation-duration: 0.5s; */
+    /* height:100%; */
+}
+
+/* @keyframes highlight-anim { */
+/*     from {transform: scale(0.5)} */
+/*     to {transform: scale(1)} */
+/* } */
+
 .right-score-entry:hover, .left-score-entry:hover {
     background-color: var(--my-green);
 }
@@ -257,7 +269,7 @@ h1 {
     grid-row-start: 4;
     grid-row-end: 5;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 4;
     z-index: 3;
     display: flex;
     align-items: center;
@@ -449,17 +461,6 @@ form input[type="text"] {
 	transform: rotate(90deg) scale(1);
 	border-radius: 50px;
     }
-}
-
-.new-highlight {
-    background-color: var(--my-green);
-    animation-name: highlight-anim;
-    animation-duration: 0.5s;
-}
-
-@keyframes highlight-anim {
-    from {transform: scale(0.5)}
-    to {transform: scale(1)}
 }
 
 #button-bar {
