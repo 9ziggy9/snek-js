@@ -13,23 +13,26 @@ const rankScore = (rank, hs, score) => (score < hs && hs !== -1)
       ? {rank: rank+1, hs: score}
       : {rank, hs: score};
 
+// I hate that DOM side-effects are so deeply coupled to fetch requests...
+// I deally, DOM updating procedures should be decoupled in a clean way.
 export const getScores = async () => {
   const response = await fetch("http://localhost:1337/scores");
   const scores = await response.json();
   const nameContainer = document.getElementById("high-score-player");
   const scoreContainer = document.getElementById("high-score-score");
   const rankContainer = document.getElementById("high-score-number");
-  let __rank = 1;
-  let __highScore = -1;
+  let _rank = 1;
+  let _highScore = -1;
   scores.forEach((score,i) => {
     const nameEntry = document.createElement("div");
     nameEntry.innerText = score.playerName;
     const scoreEntry = document.createElement("div");
     scoreEntry.innerText = score.score;
     const rankEntry = document.createElement("div");
-    __rank = rankScore(__rank, __highScore, score.score).rank;
-    __highScore = rankScore(__rank, __highScore, score.score).hs;
-    rankEntry.innerText = __rank;
+
+    // Cool trick, remember
+    ({rank: _rank, hs: _highScore} = rankScore(_rank, _highScore, score.score));
+    rankEntry.innerText = _rank;
 
     nameEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
     scoreEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
