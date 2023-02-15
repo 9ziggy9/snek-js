@@ -21,8 +21,6 @@ export function gameOver(game) {
   input.focus();
   getScores();
 
-  let _page = 1;
-  let _prevPage = 1;
   const scoreScroll = document.querySelector(".player-score-pane");
   scoreScroll.addEventListener("scroll", () => {
     const {scrollTop, scrollHeight, clientHeight} = scoreScroll;

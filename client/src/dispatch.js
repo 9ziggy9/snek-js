@@ -1,3 +1,5 @@
+let RANK = 1;
+let HIGHSCORE = -1;
 const checker = (i) => i % 2 ? "checker" : "no-checker";
 
 const purgeScores = () => {
@@ -16,13 +18,13 @@ const rankScore = (rank, hs, score) => (score < hs && hs !== -1)
 // I hate that DOM side-effects are so deeply coupled to fetch requests...
 // I deally, DOM updating procedures should be decoupled in a clean way.
 export const getScores = async () => {
+  RANK = 1;
+  HIGHSCORE = -1;
   const response = await fetch("http://localhost:1337/scores");
   const scores = await response.json();
   const nameContainer = document.getElementById("high-score-player");
   const scoreContainer = document.getElementById("high-score-score");
   const rankContainer = document.getElementById("high-score-number");
-  let _rank = 1;
-  let _highScore = -1;
   scores.forEach((score,i) => {
     const nameEntry = document.createElement("div");
     nameEntry.innerText = score.playerName;
@@ -31,8 +33,8 @@ export const getScores = async () => {
     const rankEntry = document.createElement("div");
 
     // Cool trick, remember
-    ({rank: _rank, hs: _highScore} = rankScore(_rank, _highScore, score.score));
-    rankEntry.innerText = _rank;
+    ({rank: RANK, hs: HIGHSCORE} = rankScore(RANK, HIGHSCORE, score.score));
+    rankEntry.innerText = RANK;
 
     nameEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
     scoreEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
