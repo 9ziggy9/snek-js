@@ -42,9 +42,9 @@ const purgeScores = () => {
 };
 
 const highlightScore = (scoreId) => {
-  if (!scoreId) return null;
   let newPlayer = document.getElementById(`name-${scoreId}`);
   let newScore = document.getElementById(`score-${scoreId}`);
+  if (!newPlayer || !newScore) return null;
   newPlayer.scrollIntoView({behavior: "smooth", block: "center"});
   newScore.classList.add("new-highlight");
   newPlayer.classList.add("new-highlight");

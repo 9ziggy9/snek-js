@@ -229,15 +229,14 @@ h1 {
 
 .new-highlight {
     background-color: var(--my-green);
-    /* animation-name: highlight-anim; */
-    /* animation-duration: 0.5s; */
-    /* height:100%; */
+    animation-name: highlight-anim;
+    animation-duration: 0.5s;
 }
 
-/* @keyframes highlight-anim { */
-/*     from {transform: scale(0.5)} */
-/*     to {transform: scale(1)} */
-/* } */
+@keyframes highlight-anim {
+    from {transform: scale(0.5)}
+    to {transform: scale(1)}
+}
 
 .right-score-entry:hover, .left-score-entry:hover {
     background-color: var(--my-green);
