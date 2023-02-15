@@ -13,6 +13,7 @@ export function initGrid() {
   }
 }
 
+// DEPRECATED
 export function initButtons(game) {
   let generateButton = document.getElementById("debug-apple");
   generateButton.addEventListener("click", () => game.generateApple());

@@ -1,8 +1,14 @@
-import {ROWS, COLS, RIGHT, LEFT, DOWN, UP} from "./global.js";
+import {ROWS, COLS, RIGHT, LEFT, DOWN, UP, AUDIO_SOURCES} from "./global.js";
 import {Snek, Game} from "./class.js";
 import {initGrid} from "./init.js";
 import {COLORS_SOLARIZED} from "./color.js";
 import {startGame} from "./loop.js";
+
+function setVolume() {
+  AUDIO_SOURCES.forEach(src => {
+    document.getElementById(src).volume = 0.1;
+  });
+}
 
 function handleInput(snek) {
   switch(window.event.keyCode) {
@@ -30,6 +36,7 @@ function handleInput(snek) {
 function run() {
   let frameCount = 0;
   initGrid();
+  setVolume(); // TODO: IMPLEMENT VOLUME SLIDER
   const snek = new Snek();
   const game = new Game();
   game.generateApple();
