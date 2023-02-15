@@ -21,10 +21,15 @@ export function gameOver(game) {
   input.focus();
   getScores();
 
+  let _page = 1;
+  let _prevPage = 1;
   const scoreScroll = document.querySelector(".player-score-pane");
   scoreScroll.addEventListener("scroll", () => {
     const {scrollTop, scrollHeight, clientHeight} = scoreScroll;
-    if (scrollTop >= scrollHeight / 2) console.log("Found center");
+    const yRelBottom = Math.abs(scrollHeight - scrollTop - clientHeight);
+    if (yRelBottom <= 0) {
+      console.log("found bottom"); 
+    }
   });
 
   const form = document.getElementById("high-score-input-form");
