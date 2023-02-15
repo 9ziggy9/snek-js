@@ -9,25 +9,34 @@ const purgeScores = () => {
   scoreContainer.innerHTML = "";
 };
 
+const rankScore = (rank, hs, score) => (score < hs && hs !== -1)
+      ? {rank: rank+1, hs: score}
+      : {rank, hs: score};
+
 export const getScores = async () => {
   const response = await fetch("http://localhost:1337/scores");
   const scores = await response.json();
   const nameContainer = document.getElementById("high-score-player");
   const scoreContainer = document.getElementById("high-score-score");
   const rankContainer = document.getElementById("high-score-number");
-  scores.forEach((score,rank) => {
+  let __rank = 1;
+  let __highScore = -1;
+  scores.forEach((score,i) => {
     const nameEntry = document.createElement("div");
     nameEntry.innerText = score.playerName;
     const scoreEntry = document.createElement("div");
     scoreEntry.innerText = score.score;
     const rankEntry = document.createElement("div");
-    rankEntry.innerText = rank + 1;
-    nameEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
-    scoreEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
-    rankEntry.setAttribute("class", `left-score-entry ${checker(rank)}`);
+    __rank = rankScore(__rank, __highScore, score.score).rank;
+    __highScore = rankScore(__rank, __highScore, score.score).hs;
+    rankEntry.innerText = __rank;
+
+    nameEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
+    scoreEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
+    rankEntry.setAttribute("class", `left-score-entry ${checker(i)}`);
     nameEntry.setAttribute("id", `name-${score.id}`);
     scoreEntry.setAttribute("id", `score-${score.id}`);
-    rankEntry.setAttribute("id", `rank-${rank}`);
+    rankEntry.setAttribute("id", `rank-${score.id}`);
     nameContainer.appendChild(nameEntry);
     scoreContainer.appendChild(scoreEntry);
     rankContainer.appendChild(rankEntry);

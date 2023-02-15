@@ -3,11 +3,14 @@ import {getScores, postScore} from "./dispatch.js";
 const highlightScore = (scoreId) => {
   let newPlayer = document.getElementById(`name-${scoreId}`);
   let newScore = document.getElementById(`score-${scoreId}`);
-  if (!newPlayer || !newScore) return null;
+  if (!newPlayer || !newScore) return null; // TODO: handle more gracefully
   newPlayer.scrollIntoView({behavior: "smooth", block: "center"});
   newScore.classList.add("new-highlight");
   newPlayer.classList.add("new-highlight");
   return scoreId;
+};
+
+const rankScores = (scores) => {
 };
 
 export function gameOver(game) {
