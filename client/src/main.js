@@ -4,6 +4,7 @@ import {initGrid} from "./init.js";
 import {COLORS_SOLARIZED} from "./color.js";
 import {startGame} from "./loop.js";
 
+// TODO: IMPLEMENT VOLUME SLIDER
 function setVolume() {
   AUDIO_SOURCES.forEach(src => {
     document.getElementById(src).volume = 0.1;

@@ -10,9 +10,6 @@ const highlightScore = (scoreId) => {
   return scoreId;
 };
 
-const rankScores = (scores) => {
-};
-
 export function gameOver(game) {
   const score = document.querySelector(".score-form");
   const blur = document.querySelector(".blur-win");
