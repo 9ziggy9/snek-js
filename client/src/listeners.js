@@ -1,4 +1,4 @@
-import {getScores, postScore} from "./dispatch.js";
+import {getScores, postScore, getScoresByPage} from "./dispatch.js";
 
 const highlightScore = (scoreId) => {
   let newPlayer = document.getElementById(`name-${scoreId}`);
@@ -21,12 +21,15 @@ export function gameOver(game) {
   input.focus();
   getScores();
 
+  let PAGE = 1;
   const scoreScroll = document.querySelector(".player-score-pane");
-  scoreScroll.addEventListener("scroll", () => {
+  scoreScroll.addEventListener("scroll", async () => {
     const {scrollTop, scrollHeight, clientHeight} = scoreScroll;
     const yRelBottom = Math.abs(scrollHeight - scrollTop - clientHeight);
-    if (yRelBottom <= 0) {
-      console.log("found bottom"); 
+    console.log(yRelBottom);
+    if (yRelBottom <= 25) {
+      PAGE++;
+      await getScoresByPage(PAGE, 50);
     }
   });
 

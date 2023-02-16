@@ -1,6 +1,6 @@
 // STATIC VARIABLES
-let RANK = 1;
-let HIGHSCORE = -1;
+let RANK;
+let HIGHSCORE;
 
 const checker = (i) => i % 2 ? "checker" : "no-checker";
 
@@ -17,12 +17,10 @@ const rankScore = (rank, hs, score) => (score < hs && hs !== -1)
       ? {rank: rank+1, hs: score}
       : {rank, hs: score};
 
-// I hate that DOM side-effects are so deeply coupled to fetch requests...
-// I deally, DOM updating procedures should be decoupled in a clean way.
-export const getScores = async () => {
-  RANK = 1;
-  HIGHSCORE = -1;
-  const response = await fetch("http://localhost:1337/scores");
+export const getScoresByPage = async (page, size) => {
+  const response = await fetch(
+    `http://localhost:1337/scores?page=${page}&size=${size}`
+  );
   const scores = await response.json();
   const nameContainer = document.getElementById("high-score-player");
   const scoreContainer = document.getElementById("high-score-score");
@@ -48,6 +46,12 @@ export const getScores = async () => {
     scoreContainer.appendChild(scoreEntry);
     rankContainer.appendChild(rankEntry);
   });
+};
+
+export const getScores = async () => {
+  RANK = 1;
+  HIGHSCORE = -1;
+  await getScoresByPage(1,50);
 };
 
 export const postScore = async (player, score) => {

@@ -5,12 +5,12 @@
 const randoScores = (num) => [...Array(num)]
       .map(row => ({
 	playerId: Math.floor(Math.random() * 20) + 1,
-	score: Math.floor(Math.random() * 20) * 5 + 15,
+	score: Math.floor(Math.random() * 15) * 5 + 15,
       }));
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Scores', randoScores(200), {});
+    await queryInterface.bulkInsert('Scores', randoScores(10000), {});
   },
 
   async down (queryInterface, Sequelize) {
