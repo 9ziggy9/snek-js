@@ -1,5 +1,7 @@
+// STATIC VARIABLES
 let RANK = 1;
 let HIGHSCORE = -1;
+
 const checker = (i) => i % 2 ? "checker" : "no-checker";
 
 const purgeScores = () => {
